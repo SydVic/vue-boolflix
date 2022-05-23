@@ -9,12 +9,14 @@
 
       <button 
       class="search-btn"
-      @keyup.enter="startSearch">Avvia ricerca</button>
+      @click="startSearch"
+      >Premi per avviare la ricerca</button>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
   name: 'App',
@@ -23,7 +25,21 @@ export default {
   },
   data: function() {
     return {
+      apiKey: "21af1f5df7b829ad53fd11029771d866",
       searchInput: "",
+    }
+  },
+  methods: {
+    startSearch() {
+      axios.get('https://api.themoviedb.org/3/search/movie', {
+        params: {
+          api_key: this.apiKey,
+          query: this.searchInput
+        }
+      })
+      .then((resp) => {
+        console.log(resp);
+      });
     }
   }
 }
