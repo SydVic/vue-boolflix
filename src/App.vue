@@ -19,6 +19,7 @@
     <div 
     class="movies-search-result-wrapper"
     v-for="(item) in filmResults" :key="item.id">
+      <img class="poster" :src="`https://image.tmdb.org/t/p/w342${item.poster_path}`" :alt="item.original_title">
       <h2 class="title">{{ item.title }}</h2>
       <h3 class="original-title">{{ item.original_title }}</h3>
       <div class="language">
@@ -38,6 +39,7 @@
     <div 
     class="tvseries-search-result-wrapper"
     v-for="(item) in tvSeriesResults" :key="item.id">
+      <img class="poster" :src="`https://image.tmdb.org/t/p/w342${item.poster_path}`" :alt="item.original_name">
       <h2 class="title">{{ item.name }}</h2>
       <h3 class="original-title">{{ item.original_name }}</h3>
       <div class="language">
