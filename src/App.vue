@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- WRAPPER DELLA RICERCA -->
     <div class="search-wrapper">
       <input 
       class="search-input" 
@@ -12,6 +13,19 @@
       @click="startSearch"
       >Premi per avviare la ricerca</button>
     </div>
+    <!-- /WRAPPER DELLA RICERCA -->
+
+    <!-- WRAPPER DEI RISULTATI DELLA RICERCA -->
+    <div 
+    class="serach-result-wrapper"
+    v-for="(item, index) in searchResults" :key="index">
+      <span>{{ index + 1 }}</span>
+      <h2 class="title">{{ item.title }}</h2>
+      <h3 class="original-title">{{ item.original_title }}</h3>
+      <h4 class="language">{{ item.original_language }}</h4>
+      <h5 class="rating">{{ item.vote_average }}</h5>
+    </div>
+    <!-- /WRAPPER DEI RISULTATI DELLA RICERCA -->
   </div>
 </template>
 
@@ -27,6 +41,7 @@ export default {
     return {
       apiKey: "21af1f5df7b829ad53fd11029771d866",
       searchInput: "",
+      searchResults: []
     }
   },
   methods: {
@@ -38,7 +53,7 @@ export default {
         }
       })
       .then((resp) => {
-        console.log(resp);
+        this.searchResults = resp.data.results;
       });
     }
   }
