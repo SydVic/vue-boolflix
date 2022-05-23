@@ -15,24 +15,43 @@
     </div>
     <!-- /WRAPPER DELLA RICERCA -->
 
-    <!-- WRAPPER DEI RISULTATI DELLA RICERCA -->
+    <!-- WRAPPER DEI RISULTATI DELLA RICERCA FILM -->
     <div 
-    class="search-result-wrapper"
-    v-for="(item, index) in searchResults" :key="index">
-      <span>{{ index + 1 }}</span>
+    class="movies-search-result-wrapper"
+    v-for="(item) in filmResults" :key="item.id">
       <h2 class="title">{{ item.title }}</h2>
       <h3 class="original-title">{{ item.original_title }}</h3>
       <div class="language">
-        <img 
-        v-if="`./assets/flags/${item.original_language}.png`"
+        <!-- <img 
+        v-if="(`./assets/flags/${item.original_language}.png`)"
         class="flag"
         :src="require(`./assets/flags/${item.original_language}.png`)" 
         :alt="item.original_language">
-        <h4 v-else>{{item.original_language}}</h4>
+        <h4 v-else>{{item.original_language}}</h4> -->
+        <h4>{{item.original_language}}</h4>
       </div>
       <h5 class="rating">{{ item.vote_average }}</h5>
     </div>
-    <!-- /WRAPPER DEI RISULTATI DELLA RICERCA -->
+    <!-- /WRAPPER DEI RISULTATI DELLA RICERCA FILM -->
+
+    <!-- WRAPPER DEI RISULTATI DELLA RICERCA SERIE TV -->
+    <div 
+    class="tvseries-search-result-wrapper"
+    v-for="(item) in tvSeriesResults" :key="item.id">
+      <h2 class="title">{{ item.name }}</h2>
+      <h3 class="original-title">{{ item.original_name }}</h3>
+      <div class="language">
+        <!-- <img 
+        v-if="(`./assets/flags/${item.original_language}.png`)"
+        class="flag"
+        :src="require(`./assets/flags/${item.original_language}.png`)" 
+        :alt="item.original_language">
+        <h4 v-else>{{item.original_language}}</h4> -->
+        <h4>{{item.original_language}}</h4>
+      </div>
+      <h5 class="rating">{{ item.vote_average }}</h5>
+    </div>
+    <!-- /WRAPPER DEI RISULTATI DELLA RICERCA SERIE TV -->
   </div>
 </template>
 
@@ -48,7 +67,9 @@ export default {
     return {
       apiKey: "21af1f5df7b829ad53fd11029771d866",
       searchInput: "",
-      searchResults: []
+      filmResults: [],
+      tvSeriesResults: [],
+      // searchResults: []
     }
   },
   methods: {
@@ -60,9 +81,19 @@ export default {
         }
       })
       .then((resp) => {
-        this.searchResults = resp.data.results;
+        this.filmResults = resp.data.results;
       });
-    }
+      axios.get('https://api.themoviedb.org/3/search/tv', {
+        params: {
+          api_key: this.apiKey,
+          query: this.searchInput
+        }
+      })
+      .then((resp) => {
+        this.tvSeriesResults = resp.data.results;
+        // this.searchResults = [...this.filmResults, ...this.tvSeriesResults];
+      });      
+    },
   }
 }
 </script>
