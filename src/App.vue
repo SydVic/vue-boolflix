@@ -17,12 +17,19 @@
 
     <!-- WRAPPER DEI RISULTATI DELLA RICERCA -->
     <div 
-    class="serach-result-wrapper"
+    class="search-result-wrapper"
     v-for="(item, index) in searchResults" :key="index">
       <span>{{ index + 1 }}</span>
       <h2 class="title">{{ item.title }}</h2>
       <h3 class="original-title">{{ item.original_title }}</h3>
-      <h4 class="language">{{ item.original_language }}</h4>
+      <div class="language">
+        <img 
+        v-if="`./assets/flags/${item.original_language}.png`"
+        class="flag"
+        :src="require(`./assets/flags/${item.original_language}.png`)" 
+        :alt="item.original_language">
+        <h4 v-else>{{item.original_language}}</h4>
+      </div>
       <h5 class="rating">{{ item.vote_average }}</h5>
     </div>
     <!-- /WRAPPER DEI RISULTATI DELLA RICERCA -->
@@ -61,5 +68,8 @@ export default {
 </script>
 
 <style lang="scss">
-
+.flag {
+  width:20px;
+  height: 20px;
+}
 </style>
