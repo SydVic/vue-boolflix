@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <AppHeader @modifiedInput="saveSearchInput($event)"/>
-    <AppMain />
+    <AppHeader @modifiedInput="startSearch"/>
+    <AppMain :movies="moviesResults" :tvSeries="tvSeriesResults"/>
   </div>
 </template>
 
@@ -19,29 +19,25 @@ export default {
   data: function() {
     return {
       apiKey: "21af1f5df7b829ad53fd11029771d866",
-      savedSearchInput: "",
-      filmResults: [],
+      moviesResults: [],
       tvSeriesResults: [],
     }
   },
   methods: {
-    saveSearchInput(searchInput) {
-      this.savedSearchInput = searchInput;
-    },
-    startSearch() {
+    startSearch(keyword) {
       axios.get('https://api.themoviedb.org/3/search/movie', {
         params: {
           api_key: this.apiKey,
-          query: this.savedSearchInput
+          query: keyword
         }
       })
       .then((resp) => {
-        this.filmResults = resp.data.results;
+        this.moviesResults = resp.data.results;
       });
       axios.get('https://api.themoviedb.org/3/search/tv', {
         params: {
           api_key: this.apiKey,
-          query: this.savedSearchInput
+          query: keyword
         }
       })
       .then((resp) => {
@@ -55,16 +51,5 @@ export default {
 <style lang="scss">
 @import "./style/common.scss";
 
-.movies-search-result-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-}
-.tvseries-search-result-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-}
-.flag {
-  width:20px;
-  height: 20px;
-}
+
 </style>
