@@ -10,7 +10,14 @@
       :src="getFlag(movie)" 
       :alt="movie.original_language">
       </div>
-      <h5 class="rating">{{ convertRating(movie.vote_average) }}</h5>
+      <h5 class="rating">{{ convertRating(movie.vote_average) }}
+        <div v-for="n in convertRating(movie.vote_average)" :key="n" class="stars">
+          <i class="fas fa-star"></i>
+        </div>
+        <div v-for="n in (5 - convertRating(movie.vote_average))" :key="n" class="stars">
+          <i class="far fa-star"></i>
+        </div>
+      </h5>
   </div>
 </template>
 
@@ -51,7 +58,10 @@ export default {
 }
 </script>
 
+
 <style lang="scss" scoped>
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
 .card {
   color: white;
   background-color: #808080;
