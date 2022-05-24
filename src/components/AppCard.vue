@@ -1,30 +1,44 @@
 <template>
-  <div class="card">
-    <!-- <img class="poster" :src="`https://image.tmdb.org/t/p/w300${movie.poster_path}`" :alt="getOriginalTitle(movie)"> -->
-    <!-- <img class="poster" :src="`https://image.tmdb.org/t/p/w342${movie.backdrop_path}`" :alt="getOriginalTitle(movie)"> -->
-    <img class="poster" :src="getPosterImg(movie)" :alt="getOriginalTitle(movie)">
-    <h2 class="title">{{ getTitle(movie) }}</h2>
-    <h3 class="original-title">{{ getOriginalTitle(movie) }}</h3>
-    <div class="language">
-      <img 
-      class="flag"
-      :src="getFlag(movie)" 
-      :alt="movie.original_language">
+  <div class="card" @mouseenter="show = false" @mouseleave="show = true">
+    <div v-if="show" class="img-wraper">
+      <img class="poster" :src="getPosterImg(movie)" :alt="getOriginalTitle(movie)">
     </div>
-      <!-- <h5 class="rating">{{ convertRating(movie.vote_average) }} -->
-        <!-- <span v-for="n in convertRating(movie.vote_average)" :key="n" class="stars-full">
+    <div v-else class="info-wrapper">
+      <div class="title">Titolo: 
+        <span>{{ getTitle(movie) }}</span>
+      </div>
+      <div class="original-title">Titolo originale: 
+        <span>{{ getOriginalTitle(movie) }}</span>
+      </div>
+      <div class="language">Lingua:
+        <img 
+        class="flag"
+        :src="getFlag(movie)" 
+        :alt="movie.original_language">
+      </div>
+      <div class="rating">Voto:
+        <span v-for="movie in convertRating(movie.vote_average)" :key="movie.id" class="stars-full">
           <i class="fas fa-star"></i>
         </span>
-        <span v-for="n in (5 - convertRating(movie.vote_average))" :key="n" class="stars-empty">
+        <span v-for="movie in (5 - convertRating(movie.vote_average))" :key="movie.id" class="stars-empty">
           <i class="far fa-star"></i>
-        </span> -->
-      <!-- </h5> -->
+        </span>
+      </div>
+      <div class="overview">Overview: 
+        <span>{{ movie.overview }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "AppCard",
+  data: function() {
+    return {
+      show: true,
+    }
+  },
   props: {
     movie: Object,
   },
@@ -75,23 +89,29 @@ export default {
 
 .card {
   color: white;
-  background-color: #808080;
-  text-align: center;
+  background-color: #000000;
+  border: 2px solid rgb(255, 245, 245);
+  text-align: left;
   margin: 10px;
-  padding: 10px;
-  width: calc(100% / 4 - 20px);
+  width: 342px;
+  min-height: 510px;
 
   img {
     width: 100%;
+    height: auto;
   }
 
-  .stars-full {
-    color: #ffd700;
-  }
-
-  .flag {
-  width:20px;
-  height: 20px;
+  .info-wrapper {
+    padding: 1.5rem .7rem 0 .7rem;
+    
+    .stars-full {
+      color: #ffd700;
+    }
+  
+    .flag {
+    width:20px;
+    height: 20px;
+    }
   }
 }
 </style>

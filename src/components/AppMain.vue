@@ -32,7 +32,7 @@ export default {
 .main {
   width: 100%;
   height: calc(100vh - $header-height);
-  background-color: black;
+  background-color: rgb(97, 97, 97);
   overflow-y: auto;
   text-align: center;
 
@@ -43,11 +43,13 @@ export default {
   .movies-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
   }
 
   .tv-series-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
   }
 }
 </style>

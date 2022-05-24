@@ -1,5 +1,8 @@
 <template>
   <section class="header">
+    <div class="logo">
+      boolflix
+    </div>
     <!-- WRAPPER DELLA RICERCA -->
     <div class="search-wrapper">
       <input 
@@ -35,7 +38,15 @@ export default {
   height: $header-height;
   background-color: rgb(36, 35, 35);
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding-left: 2rem;
+  padding: 0 2rem;
+
+  .logo {
+    color: red;
+    text-transform: uppercase;
+    font-size: 2rem;
+    font-weight: bolder;
+  }
 }
 </style>
