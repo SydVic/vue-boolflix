@@ -1,11 +1,13 @@
 <template>
   <section class="main">
+    <h2 class="movies">MOVIES</h2>
     <div class="movies-container">
       <AppCard v-for="item in movies" :key="item.id" :movie="item"/>
     </div>
-    <!-- <div class="tvseries-container">
-      <AppCard v-for="item in tvSeries" :key="item.id" :tvSerie="item"/>
-    </div> -->
+    <h2 class="tv-series">TV SERIES</h2>
+    <div class="tv-series-container">
+      <AppCard v-for="item in tvSeries" :key="item.id" :movie="item"/>
+    </div>
   </section>
 </template>
 
@@ -20,8 +22,7 @@ export default {
   props: {
     movies: Array,
     tvSeries: Array,
-  },
-  
+  }, 
 }
 </script>
 
@@ -33,13 +34,18 @@ export default {
   height: calc(100vh - $header-height);
   background-color: black;
   overflow-y: auto;
+  text-align: center;
+
+  h2 {
+    color: #ffffff;
+  }
 
   .movies-container {
     display: flex;
     flex-wrap: wrap;
   }
 
-  .tvseries-container {
+  .tv-series-container {
     display: flex;
     flex-wrap: wrap;
   }

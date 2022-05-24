@@ -1,8 +1,9 @@
 <template>
   <div class="card">
-    <img class="poster" :src="`https://image.tmdb.org/t/p/w300${movie.poster_path}`" :alt="movie.original_title">
-    <h2 class="title">{{ movie.title }}</h2>
-    <h3 class="original-title">{{ movie.original_title }}</h3>
+    <img class="poster" :src="`https://image.tmdb.org/t/p/w300${movie.poster_path}`" :alt="getOriginalTitle(movie)">
+    <!-- <h2 class="title">{{ movie.title }}</h2> -->
+    <h2 class="title">{{ getTitle(movie) }}</h2>
+    <h3 class="original-title">{{ getOriginalTitle(movie) }}</h3>
     <div class="language">
       <img 
       class="flag"
@@ -28,6 +29,20 @@ export default {
         return movie.original_language;
       }
     },
+    getTitle(movie) {
+      if (movie.title) {
+        return movie.title;
+      } else {
+        return movie.name;
+      }
+    },
+    getOriginalTitle(movie) {
+      if (movie.original_title) {
+        return movie.original_title;
+      } else {
+        return movie.original_name;
+      }
+    },
     convertRating(vote) {
       const convertedNumber = Math.round(vote / 2);
       return convertedNumber;
@@ -44,6 +59,10 @@ export default {
   margin: 10px;
   padding: 10px;
   width: calc(100% / 5 - 20px);
+
+  img {
+    width: 100%;
+  }
 
   .flag {
   width:20px;
