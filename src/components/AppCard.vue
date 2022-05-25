@@ -1,8 +1,9 @@
 <template>
   <div class="card" @mouseenter="show = false" @mouseleave="show = true">
     <!-- MOVIE POSTER  -->
-    <div v-if="show" class="img-wraper">
+    <div v-if="show" class="poster-wrapper">
       <span class="type-label" :class="movie.title? 'text-blue' : 'text-red'">{{movieOrSerie(movie)}}</span>
+      <span v-show="posterUnavalaible" class="backup-title">{{ getTitle(movie) }}</span>
       <img class="poster" :src="getPosterImg(movie)" :alt="getOriginalTitle(movie)">
     </div>
     <!-- /MOVIE POSTER  -->
@@ -69,6 +70,7 @@ export default {
       movieCast: [],
       showCast: false,
       movieGenres: [],
+      posterUnavalaible: false,
     }
   },
   props: {
@@ -81,7 +83,9 @@ export default {
       } else if (movie.backdrop_path) {
         return `https://image.tmdb.org/t/p/w342${movie.backdrop_path}`;
       } else {
+        this.posterUnavalaible = true;
         return require('../assets/img/poster-holder.jpg');
+        
       }
     },
     getFlag(movie) {
@@ -147,28 +151,42 @@ export default {
   overflow: hidden;
   position: relative;
 
-  .type-label {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 0.3rem 0.5rem;
-    background-color: rgba( #d4d4d4, 0.5);
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 5px;
+  .poster-wrapper {
+    text-align: center;
 
-    &.text-blue {
-      color: #0000ff;
+    .type-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 0.3rem 0.5rem;
+      background-color: rgba( #d4d4d4, 0.5);
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 5px;
+
+      &.text-blue {
+        color: #0000ff;
+      }
+
+      &.text-red {
+        color: #ff0000;
+      }
     }
 
-    &.text-red {
-      color: #ff0000;
+    .backup-title {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: black;
+      font-size: 1.5rem;
+      font-weight: bolder;
     }
-  }
 
-  img {
-    width: 100%;
-    height: 530px;
+    img {
+      width: 100%;
+      height: 530px;
+    }
   }
 
   .info-wrapper {
