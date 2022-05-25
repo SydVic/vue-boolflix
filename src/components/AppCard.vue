@@ -2,6 +2,7 @@
   <div class="card" @mouseenter="show = false" @mouseleave="show = true">
     <!-- MOVIE POSTER  -->
     <div v-if="show" class="img-wraper">
+      <span class="type-label" :class="movie.title? 'text-blue' : 'text-red'">{{movieOrSerie(movie)}}</span>
       <img class="poster" :src="getPosterImg(movie)" :alt="getOriginalTitle(movie)">
     </div>
     <!-- /MOVIE POSTER  -->
@@ -98,6 +99,13 @@ export default {
         return movie.name;
       }
     },
+    movieOrSerie(movie) {
+      if (movie.title) {
+        return "movie";
+      } else {
+        return "tv serie";
+      }
+    },
     getOriginalTitle(movie) {
       if (movie.original_title) {
         return movie.original_title;
@@ -137,6 +145,26 @@ export default {
   width: 342px;
   height: 530px;
   overflow: hidden;
+  position: relative;
+
+  .type-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 0.3rem 0.5rem;
+    background-color: rgba( #d4d4d4, 0.5);
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+
+    &.text-blue {
+      color: #0000ff;
+    }
+
+    &.text-red {
+      color: #ff0000;
+    }
+  }
 
   img {
     width: 100%;
