@@ -1,21 +1,36 @@
 <template>
   <div class="card" @mouseenter="show = false" @mouseleave="show = true">
+    <!-- MOVIE POSTER  -->
     <div v-if="show" class="img-wraper">
       <img class="poster" :src="getPosterImg(movie)" :alt="getOriginalTitle(movie)">
     </div>
+    <!-- /MOVIE POSTER  -->
+
+    <!-- MOVIE INFO -->
     <div v-else class="info-wrapper">
+      <!-- TITLE -->
       <div class="title">Titolo: 
         <span>{{ getTitle(movie) }}</span>
       </div>
+      <!-- ORIGINAL TITLE -->
       <div class="original-title">Titolo originale: 
         <span>{{ getOriginalTitle(movie) }}</span>
       </div>
+      <!-- GENRE -->
+      <div class="genre">
+        {{ createGenresRequest(movie) }}
+        <ul>
+          <li v-for="genre in movieGenres" :key="genre">Genre: {{ genre.name }}</li>
+        </ul>
+        </div>
+      <!-- LANGUAGE -->
       <div class="language">Lingua:
         <img 
         class="flag"
         :src="getFlag(movie)" 
         :alt="movie.original_language">
       </div>
+      <!-- RATING -->
       <div class="rating">Voto:
         <span v-for="movie in convertRating(movie.vote_average)" :key="movie.id" class="stars-full">
           <i class="fas fa-star"></i>
@@ -24,17 +39,20 @@
           <i class="far fa-star"></i>
         </span>
       </div>
+      <!-- OVERVIEW -->
       <div class="overview">Overview: 
         <span>{{ movie.overview }}</span>
       </div>
-      <div class="show-cast" @click="createAxiosRequest(movie), showCast = !showCast">{{ showCast? "hide main cast" : "show main cast" }}</div>
+      <!-- CAST -->
+      <div class="show-cast" @click="createCastRequest(movie), showCast = !showCast">{{ showCast? "hide main cast" : "show main cast" }}</div>
       <div v-show="showCast" class="cast-wrapper">
         <ul class="cast-list">
           <li v-for="item in movieCast" :key="item.cast_id">{{ item.name }}</li>
         </ul>
       </div>
-      
+      <!-- CAST -->
     </div>
+    <!-- /MOVIE INFO -->
   </div>
 </template>
 
@@ -47,9 +65,9 @@ export default {
     return {
       show: true,
       apiKey: "21af1f5df7b829ad53fd11029771d866",
-      axiosUrl: "",
       movieCast: [],
       showCast: false,
+      movieGenres: [],
     }
   },
   props: {
@@ -91,12 +109,17 @@ export default {
       const convertedNumber = Math.ceil(vote / 2);
       return convertedNumber;
     },
-    createAxiosRequest(movie) {
-      this.axiosUrl = 'https://api.themoviedb.org/3/movie/'+ movie.id + '/credits?api_key=21af1f5df7b829ad53fd11029771d866';
-      axios.get(this.axiosUrl)
-        .then((resp) => {
-          this.movieCast = resp.data.cast.slice(0, 5);
-        });
+    createCastRequest(movie) {
+      const axiosUrl = 'https://api.themoviedb.org/3/movie/'+ movie.id + '/credits?api_key='+ this.apiKey;
+      axios.get(axiosUrl).then((resp) => {
+        this.movieCast = resp.data.cast.slice(0, 5); 
+      });
+    },
+    createGenresRequest(movie) {
+      const axiosUrl = 'https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key='+ this.apiKey;
+      axios.get(axiosUrl).then((resp) => {
+        this.movieGenres = resp.data.genres;
+      });
     },
   },
 }
@@ -147,10 +170,6 @@ export default {
       color: #0000ff;
       cursor: pointer;
       display: inline-block;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 }
