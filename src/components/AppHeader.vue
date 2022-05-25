@@ -17,9 +17,13 @@
       >Premi per avviare la ricerca
       </button>
 
-      <select name="" id="">
-        <option value="">Filtra per genere</option>
+      <select name="movies-filter" id="">
+        <option value="">Filtra film per genere</option>
         <option value="moviesGenres.id" v-for="item in moviesGenres" :key="item.id">{{item.name}}</option>
+      </select>
+      <select name="tv-series-filter" id="">
+        <option value="">Filtra serie tv per genere</option>
+        <option value="tvGenres.id" v-for="item in tvGenres" :key="item.id">{{item.name}}</option>
       </select>
     </div>
     <!-- /WRAPPER DELLA RICERCA -->
