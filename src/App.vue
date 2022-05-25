@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-    <AppHeader @modifiedInput="startSearch"/>
-    <AppMain 
-    :movies="moviesResults" 
-    :tvSeries="tvSeriesResults"
+    <AppHeader 
+    @modifiedInput="startSearch"
     :moviesGenres="movieGenresReference"
     :tvGenres="tvGenresReference"/>
+    <AppMain 
+    :movies="moviesResults" 
+    :tvSeries="tvSeriesResults"/>
   </div>
 </template>
 

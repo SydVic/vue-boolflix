@@ -14,7 +14,13 @@
       <button 
       class="search-btn"
       @click="$emit('modifiedInput', searchInput)"
-      >Premi per avviare la ricerca</button>
+      >Premi per avviare la ricerca
+      </button>
+
+      <select name="" id="">
+        <option value="">Filtra per genere</option>
+        <option value="moviesGenres.id" v-for="item in moviesGenres" :key="item.id">{{item.name}}</option>
+      </select>
     </div>
     <!-- /WRAPPER DELLA RICERCA -->
   </section>
@@ -23,6 +29,10 @@
 <script>
 export default {
   name: "AppHeader",
+  props: {
+    moviesGenres: Array,
+    tvGenres: Array,
+  },
   data() {
     return {
       searchInput: "",
