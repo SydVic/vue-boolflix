@@ -48,5 +48,16 @@ export default {
     font-size: 2rem;
     font-weight: bolder;
   }
+
+  .search-input {
+    padding: .3rem .3rem;
+    margin-right: .3rem;
+    border-radius: 5px;
+  }
+
+  .search-btn {
+    padding: .3rem .3rem;
+    border-radius: 5px;
+  }
 }
 </style>

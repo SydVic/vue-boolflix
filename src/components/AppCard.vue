@@ -27,16 +27,26 @@
       <div class="overview">Overview: 
         <span>{{ movie.overview }}</span>
       </div>
+      <!--  -->
+      <div class="show-cast" @click="createAxiosRequest(movie)">SHOW CAST</div>
+      <!--  -->
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "AppCard",
   data: function() {
     return {
       show: true,
+      apiKey: "21af1f5df7b829ad53fd11029771d866",
+      //
+      axiosUrl: "",
+      movieCast: [],
+      //
     }
   },
   props: {
@@ -79,30 +89,45 @@ export default {
       const convertedNumber = Math.round(vote / 2);
       return convertedNumber;
     },
+    createAxiosRequest(movie) {
+      this.axiosUrl = 'https://api.themoviedb.org/3/movie/'+ movie.id + '/credits?api_key=21af1f5df7b829ad53fd11029771d866';
+      axios.get(this.axiosUrl)
+        .then((resp) => {
+          this.movieCast = resp.data.cast;
+        });
+    },
   },
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 .card {
-  color: white;
+  color: #ffffff;
   background-color: #000000;
-  border: 2px solid rgb(255, 245, 245);
+  border: 2px solid #fff5f5;
   text-align: left;
   margin: 10px;
   width: 342px;
-  min-height: 510px;
+  height: 530px;
+  overflow: hidden;
 
   img {
     width: 100%;
-    height: auto;
+    height: 530px;
   }
 
   .info-wrapper {
     padding: 1.5rem .7rem 0 .7rem;
+
+    .title {
+      font-weight: bold;
+
+      span {
+        color: rgb(231, 231, 231);
+      }
+    }
     
     .stars-full {
       color: #ffd700;
@@ -111,6 +136,17 @@ export default {
     .flag {
     width:20px;
     height: 20px;
+    }
+
+    .show-cast {
+      text-transform: uppercase;
+      color: #0000ff;
+      cursor: pointer;
+      display: inline-block;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }

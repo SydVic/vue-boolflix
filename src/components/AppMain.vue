@@ -41,15 +41,23 @@ export default {
   }
 
   .movies-container {
+    margin: 0 auto;
+    padding: 2rem 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    width: 97%;
+    border: 2px solid blue;
   }
 
   .tv-series-container {
+    margin: 0 auto;
+    padding: 2rem 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    width: 97%;
+    border: 2px solid rgb(185, 14, 14);
   }
 }
 </style>
