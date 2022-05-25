@@ -22,6 +22,8 @@ export default {
   props: {
     movies: Array,
     tvSeries: Array,
+    moviesGenres: Array,
+    tvGenres: Array,
   }, 
 }
 </script>

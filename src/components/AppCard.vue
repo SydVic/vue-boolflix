@@ -121,7 +121,9 @@ export default {
   }
 
   .info-wrapper {
-    padding: 1.5rem .7rem 0 .7rem;
+    padding: 1.5rem .7rem 1rem .7rem;
+    height: 100%;
+    overflow-y: auto;
 
     .title {
       font-weight: bold;
