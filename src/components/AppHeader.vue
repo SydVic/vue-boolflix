@@ -17,11 +17,11 @@
       >Premi per avviare la ricerca
       </button>
 
-      <select name="movies-filter" id="">
+      <select class="movies-filter" name="movies-filter" id="">
         <option value="">Filtra film per genere</option>
         <option value="moviesGenres.id" v-for="item in moviesGenres" :key="item.id">{{item.name}}</option>
       </select>
-      <select name="tv-series-filter" id="">
+      <select class="tv-series-filter" name="tv-series-filter" id="">
         <option value="">Filtra serie tv per genere</option>
         <option value="tvGenres.id" v-for="item in tvGenres" :key="item.id">{{item.name}}</option>
       </select>
@@ -71,6 +71,16 @@ export default {
 
   .search-btn {
     padding: .3rem .3rem;
+    border-radius: 5px;
+  }
+
+  .movies-filter {
+    padding: .2rem .2rem;
+    border-radius: 5px;
+  }
+
+  .tv-series-filter {
+    padding: .2rem .2rem;
     border-radius: 5px;
   }
 }
