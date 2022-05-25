@@ -20,7 +20,7 @@
       <div class="genre">
         {{ createGenresRequest(movie) }}
         <ul>
-          <li v-for="genre in movieGenres" :key="genre">Genre: {{ genre.name }}</li>
+          <li v-for="item in movieGenres" :key="item.id">Genre: {{ item.name }}</li>
         </ul>
         </div>
       <!-- LANGUAGE -->
