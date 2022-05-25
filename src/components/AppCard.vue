@@ -95,7 +95,7 @@ export default {
       this.axiosUrl = 'https://api.themoviedb.org/3/movie/'+ movie.id + '/credits?api_key=21af1f5df7b829ad53fd11029771d866';
       axios.get(this.axiosUrl)
         .then((resp) => {
-          this.movieCast = resp.data.cast;
+          this.movieCast = resp.data.cast.slice(0, 5);
         });
     },
   },
