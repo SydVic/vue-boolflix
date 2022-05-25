@@ -27,9 +27,13 @@
       <div class="overview">Overview: 
         <span>{{ movie.overview }}</span>
       </div>
-      <!--  -->
-      <div class="show-cast" @click="createAxiosRequest(movie)">SHOW CAST</div>
-      <!--  -->
+      <div class="show-cast" @click="createAxiosRequest(movie), showCast = !showCast">{{ showCast? "hide main cast" : "show main cast" }}</div>
+      <div v-show="showCast" class="cast-wrapper">
+        <ul class="cast-list">
+          <li v-for="item in movieCast" :key="item.cast_id">{{ item.name }}</li>
+        </ul>
+      </div>
+      
     </div>
   </div>
 </template>
@@ -43,10 +47,9 @@ export default {
     return {
       show: true,
       apiKey: "21af1f5df7b829ad53fd11029771d866",
-      //
       axiosUrl: "",
       movieCast: [],
-      //
+      showCast: false,
     }
   },
   props: {
@@ -56,8 +59,7 @@ export default {
     getPosterImg(movie) {
       if (movie.poster_path) {
         return `https://image.tmdb.org/t/p/w342${movie.poster_path}`;
-      } else if (movie.backdrop_path)
-      {
+      } else if (movie.backdrop_path) {
         return `https://image.tmdb.org/t/p/w342${movie.backdrop_path}`;
       } else {
         return require('../assets/img/poster-holder.jpg');
@@ -86,7 +88,7 @@ export default {
       }
     },
     convertRating(vote) {
-      const convertedNumber = Math.round(vote / 2);
+      const convertedNumber = Math.ceil(vote / 2);
       return convertedNumber;
     },
     createAxiosRequest(movie) {
@@ -134,8 +136,8 @@ export default {
     }
   
     .flag {
-    width:20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     }
 
     .show-cast {
