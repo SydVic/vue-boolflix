@@ -13,7 +13,7 @@
 
       <button 
       class="search-btn"
-      @click="$emit('modifiedInput', searchInput)"
+      @click="veirfyAndSendSearch()"
       >Premi per avviare la ricerca
       </button>
 
@@ -51,6 +51,13 @@ export default {
       searchInput: "",
       selectedMovieGenre: "",
       selectedTvGenre: "",
+    }
+  },
+  methods: {
+    veirfyAndSendSearch() {
+      if (this.searchInput.trim()) {
+        this.$emit('modifiedInput', this.searchInput);
+      }
     }
   }
 }
