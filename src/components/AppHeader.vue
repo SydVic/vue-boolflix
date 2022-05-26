@@ -8,13 +8,13 @@
       <input 
       class="search-input" 
       type="text" 
-      placeholder="titolo o parola chiave"
+      placeholder="title or keyword"
       v-model="searchInput">
 
       <button 
       class="search-btn"
       @click="veirfyAndSendSearch()"
-      >Premi per avviare la ricerca
+      >Search
       </button>
 
       <select 
@@ -22,7 +22,7 @@
       name="movies-filter" 
       id="" 
       @change="$emit('movieGenreChanged', selectedMovieGenre)" v-model="selectedMovieGenre">
-        <option value="">Filtra film per genere</option>
+        <option value="">Filter Movies for genre</option>
         <option :value="item.id" v-for="item in moviesGenres" :key="item.id">{{item.name}}</option>
       </select>
       <select 
@@ -31,7 +31,7 @@
       id="" 
       @change="$emit('tvGenreChanged', selectedTvGenre)" 
       v-model="selectedTvGenre">
-        <option value="">Filtra serie tv per genere</option>
+        <option value="">Filter TvSeries for genre</option>
         <option :value="item.id" v-for="item in tvGenres" :key="item.id">{{item.name}}</option>
       </select>
     </div>
@@ -82,24 +82,34 @@ export default {
   }
 
   .search-input {
-    padding: .3rem .3rem;
-    margin-right: .3rem;
-    border-radius: 5px;
+    padding: .5rem .7rem;
+    border: 2px solid red;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
   }
 
   .search-btn {
-    padding: .3rem .3rem;
-    border-radius: 5px;
+    padding: .5rem .7rem;
+    border: 2px solid red;
+    background-color: red;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin-right: 1.5rem;
+    text-transform: uppercase;
+    font-weight: bold;
   }
 
   .movies-filter {
-    padding: .2rem .2rem;
-    border-radius: 5px;
+    padding: .4rem .2rem;
+    border-radius: 8px;
+    margin-right: .5rem;
+    border: 2px solid red;
   }
 
   .tv-series-filter {
-    padding: .2rem .2rem;
-    border-radius: 5px;
+    padding: .4rem .2rem;
+    border-radius: 8px;
+    border: 2px solid red;
   }
 }
 </style>
