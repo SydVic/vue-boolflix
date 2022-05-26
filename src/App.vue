@@ -1,11 +1,13 @@
 <template>
   <div id="app">
     <AppHeader 
-    @modifiedInput="startSearch"
+    @modifiedInput="startSearch($event)"
+    @movieGenreChanged="saveSelectedMovieGenre"
+    @tvGenreChanged="saveSelectedTvGenre"
     :moviesGenres="movieGenresReference"
     :tvGenres="tvGenresReference"/>
     <AppMain 
-    :movies="moviesResults" 
+    :movies="filteredMovies"
     :tvSeries="tvSeriesResults"/>
   </div>
 </template>
@@ -28,6 +30,8 @@ export default {
       tvSeriesResults: [],
       movieGenresReference: [],
       tvGenresReference: [],
+      savedSelectedMovieGenre: "",
+      savedSelectedTvGenre: "",
     }
   },
   methods: {
@@ -44,26 +48,25 @@ export default {
       axios.all([request1, request2]).then(resp => {
         this.moviesResults = resp[0].data.results;
         this.tvSeriesResults = resp[1].data.results;
-      });
-      // axios.get('https://api.themoviedb.org/3/search/movie', {
-      //   params: {
-      //     api_key: this.apiKey,
-      //     query: keyword
-      //   }
-      // })
-      // .then((resp) => {
-      //   this.moviesResults = resp.data.results;
-      // });
-      // axios.get('https://api.themoviedb.org/3/search/tv', {
-      //   params: {
-      //     api_key: this.apiKey,
-      //     query: keyword
-      //   }
-      // })
-      // .then((resp) => {
-      //   this.tvSeriesResults = resp.data.results;
-      // });      
+      });     
     },
+    saveSelectedMovieGenre(selectedGenre) {
+      this.savedSelectedMovieGenre = selectedGenre;
+    },
+    saveSelectedTvGenre(selectedGenre) {
+      this.savedSelectedTvGenre = selectedGenre;
+    }
+  },
+  computed: {
+    filteredMovies() {
+      if (this.savedSelectedMovieGenre === "") {
+        return this.moviesResults;
+      } else {
+        return this.moviesResults.filter(item => {
+        return item.genre_ids.includes(this.savedSelectedMovieGenre);
+        })
+      }
+    }
   },
   created() {
     const request1 = axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=21af1f5df7b829ad53fd11029771d866");

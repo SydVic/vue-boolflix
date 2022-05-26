@@ -17,11 +17,20 @@
       >Premi per avviare la ricerca
       </button>
 
-      <select class="movies-filter" name="movies-filter" id="" @change="$emit('movieGenreChanged', selectedMovieGenre)" v-model="selectedMovieGenre">
+      <select 
+      class="movies-filter" 
+      name="movies-filter" 
+      id="" 
+      @change="$emit('movieGenreChanged', selectedMovieGenre)" v-model="selectedMovieGenre">
         <option value="">Filtra film per genere</option>
         <option :value="item.id" v-for="item in moviesGenres" :key="item.id">{{item.name}}</option>
       </select>
-      <select class="tv-series-filter" name="tv-series-filter" id="" @change="$emit('tvGenreChanged', selectedTvGenre)" v-model="selectedTvGenre">
+      <select 
+      class="tv-series-filter" 
+      name="tv-series-filter" 
+      id="" 
+      @change="$emit('tvGenreChanged', selectedTvGenre)" 
+      v-model="selectedTvGenre">
         <option value="">Filtra serie tv per genere</option>
         <option :value="item.id" v-for="item in tvGenres" :key="item.id">{{item.name}}</option>
       </select>
