@@ -8,7 +8,7 @@
     :tvGenres="tvGenresReference"/>
     <AppMain 
     :movies="filteredMovies"
-    :tvSeries="tvSeriesResults"/>
+    :tvSeries="filteredTvSeries"/>
   </div>
 </template>
 
@@ -64,6 +64,15 @@ export default {
       } else {
         return this.moviesResults.filter(item => {
         return item.genre_ids.includes(this.savedSelectedMovieGenre);
+        })
+      }
+    },
+    filteredTvSeries() {
+      if (this.savedSelectedTvGenre === "") {
+        return this.tvSeriesResults;
+      } else {
+        return this.tvSeriesResults.filter(item => {
+        return item.genre_ids.includes(this.savedSelectedTvGenre);
         })
       }
     }
